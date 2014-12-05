@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>reveal.js - The HTML Presentation Framework</title>
+    <title>Oncall at Amplify</title>
 
     <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
     <meta name="author" content="Hakim El Hattab">
@@ -60,6 +60,7 @@
             <li class="fragment">Perform deploys and provide deployment support</li>
             <li class="fragment">Point of contact for production problems</li>
             <li class="fragment">Find someone who can fix the problem</li>
+            <li class="fragment">Communicate outages caused by infrastructure failure</li>
           </ul>
          </section>
 
@@ -160,6 +161,42 @@
         </section>
 
         <section>
+          <h2>Severity Definitions</h2>
+          <table>
+          <tr>
+            <th>Impact Magnitude</th>
+            <th>Work-around</th>
+            <th>No work-around</th>
+          </tr>
+          <tr class="fragment">
+            <td>1-3 users</td>
+            <td>3</td>
+            <td>3</td>
+          </tr>
+          <tr class="fragment">
+            <td>4-25 users (1 class)</td>
+            <td>3</td>
+            <td>2</td>
+          </tr>
+          <tr class="fragment">
+            <td>26-50 users (>= 2 classes, < 1 school)</td>
+            <td>2</td>
+            <td>1</td>
+          </tr>
+          <tr class="fragment">
+            <td>51+ users (>= 1 school, >= 10% district)</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <tr class="fragment">
+            <td>> 2000 users</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          </table>
+        </section>
+
+        <section>
           <h2>Pager Duty Notifications</h2>
           <p>All Nagios &amp; Pingdom alerts and emails sent to <a href="mailto:pageops@amplify.com">pageops@amplify.com</a>
              go through PagerDuty</p>
@@ -185,7 +222,7 @@
             <li class="fragment">PagerDuty rolls up alerts based on de-duplication rules</li>
             <li class="fragment">PagerDuty alerts</li>
             <li class="fragment">Nagios sends resolution when service goes OK</li>
-            <li class="fragment">2-3 repeat until service clears</a>
+            <li class="fragment">2-3 repeat until service clears</li>
           </ol>
         </section>
 
@@ -194,7 +231,7 @@
           <img src="images/pagerduty_actions.png" alt="pagerduty_actions"/>
           <p><strong>Acknowledging</strong> an alert silences it for 4 hours.</p>
           <p class="fragment"><strong>Resolving</strong> an alert tells PagerDuty it's fixed</p>
-          <p class="fragment">If it's not resolved in Nagios, it will just re-alert you!</p>
+          <p class="fragment">If it's not resolved in Nagios, it will just re-alert you! PagerDuty does not talk to Nagios</p>
           <p class="fragment"><strong>Reassign</strong> will make the alert page another person</p>
         </section>
 
@@ -207,7 +244,7 @@
             <li class="fragment">PagerDuty Alerts on-call again</li>
           </ol>
 
-          <p class="fragment">Moral: Nagios is the source of truth</p>
+          <p class="fragment">Moral: Nagios is the source of truth.</p>
         </section>
 
         <section>
@@ -217,7 +254,7 @@
             <li class="fragment">Look at SERVICEOUTPUT field in PagerDuty alert<br/>
               <img alt="pagerduty" src="images/pagerduty_serviceoutput.png"/>
             </li>
-            <li class="fragment">Downtime known reoccuring problems that we can't fix immediately
+            <li class="fragment">Downtime known non-critical problems that we can't fix immediately
               <pre>
                 <code data-trim>
 $ nagios-cli --host localhost --port 8080 \
@@ -245,7 +282,7 @@ $ nagios-cli --host localhost --port 8080 \
         <section>
           <h2>Be Responsible</h2>
           <ul>
-            <li class="fragment">Understand what a service check does before disregarding - RTFC</li>
+            <li>Understand what a service check does before disregarding - RTFC</li>
             <li class="fragment">If there is no runbook entry, add it<br/>
               <img alt="runbook" src="images/nagios_runbook_edit.png"/>
             </li>
@@ -253,6 +290,10 @@ $ nagios-cli --host localhost --port 8080 \
               <img alt="nagios" src="images/nagios_service_cmds.png"/>
             </li>
           </ul>
+        </section>
+
+        <section>
+          <h2>Nagios Walkthrough</h2>
         </section>
 
       </div>
@@ -272,7 +313,7 @@ $ nagios-cli --host localhost --port 8080 \
         history: true,
         center: true,
 
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        transition: 'concave', // none/fade/slide/convex/concave/zoom
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
